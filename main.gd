@@ -1,16 +1,15 @@
 extends Node2D
 
 func _ready():
+    randomize()
     var positions = $spawners.get_children()
     for p_id in main_state.spawn_points:
         add_player(p_id, positions.pop_front().position)
         
     if is_network_master():
-        $CoinTimer.start()
         spawn_coin()
         
 func add_player(id: int, start_position: Vector2):
-    print(id)
     var player = load("res://player/Player.tscn").instance()
     player.set_name(str(id)) # Use unique ID as node name
     player.position = start_position
@@ -29,13 +28,17 @@ func add_player(id: int, start_position: Vector2):
 remote func spawn_coin(spawn_position = null):
     if not spawn_position:
         spawn_position = $CoinsPositions.get_children()[randi() % $CoinsPositions.get_child_count()].position
-
-    if is_network_master():
-        rpc("spawn_coin", spawn_position)
         
     var coin = load("res://coin/Coin.tscn").instance()
     coin.position = spawn_position
     $Coins.add_child(coin)
+    
+    if is_network_master():
+        coin.connect("tree_exited", self, "start_timer")
+        rpc("spawn_coin", spawn_position)
+
+func start_timer():
+    $CoinTimer.start()
 
 func _on_CoinTimer_timeout():
     spawn_coin()

@@ -21,6 +21,8 @@ var states = {
 var velocity: Vector2 = Vector2()
 var flip: bool = false
 
+var points = 0
+
 var camera
 
 export(int) var crawl_speed: int = 70
@@ -41,20 +43,21 @@ func _ready() -> void:
     change_state(STATES.IDLE)
     get_tree().create_timer(0.1)
     
-#func _process(delta):
-#    if is_network_master():
-#        for arrow in camera.find_node("Path2D").get_children():
-#            arrow.queue_free()
-#        
-#        var coins = get_parent().get_parent().find_node("Coins")
-#        for coin in coins.get_children():
-#            var arrow = load("res://player/Arrow.tscn").instance()
-#            var coin_vector = position - coin.position
-#            #arrow.find_node("Sprite").rotation = coin_vector.angle()
-#            var offset = (coin_vector.angle()) / PI * 2
-#            
-#            camera.find_node("Path2D").add_child(arrow)
-#            arrow.unit_offset = offset
+func _process(delta):
+    if is_network_master():
+        for arrow in camera.find_node("Path2D").get_children():
+            arrow.queue_free()
+        
+        var coins = get_parent().get_parent().find_node("Coins")
+        for coin in coins.get_children():
+            if not coin.find_node("Visibility").is_on_screen():
+                var arrow = load("res://player/Arrow.tscn").instance()
+                var coin_vector = position - coin.position
+                arrow.find_node("Sprite").rotation = coin_vector.angle()
+                var offset = (coin_vector.angle() + PI) / (PI * 2)
+                
+                camera.find_node("Path2D").add_child(arrow)
+                arrow.unit_offset = offset
     
 func _physics_process(delta) -> void:
     
@@ -71,8 +74,7 @@ func _physics_process(delta) -> void:
         
     $AnimatedSprite.flip_h = flip
     
-    
-    
+
 remote func change_state(new_state) -> void:
     if is_network_master():
         rpc("change_state", new_state)
@@ -84,3 +86,7 @@ func setAnimation(name: String) -> void:
 func setCollision(extents: Vector2 = Vector2(10, 14), position: Vector2 = Vector2()):
     $CollisionShape2D.shape.extents = extents
     $CollisionShape2D.position = position
+    
+remote func add_point():
+    points += 1
+    $Points.text = str(points)

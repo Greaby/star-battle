@@ -1,46 +1,38 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
-[ext_resource path="res://PressStart2P.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://player/assets/font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://slash.png" type="Texture" id=3]
 [ext_resource path="res://player/assets/player-idle1.png" type="Texture" id=4]
 [ext_resource path="res://player/assets/player-idle2.png" type="Texture" id=5]
-[ext_resource path="res://player/assets/player-double-jump.png" type="Texture" id=6]
-[ext_resource path="res://player/assets/player-walk1.png" type="Texture" id=7]
-[ext_resource path="res://player/assets/player-walk2.png" type="Texture" id=8]
-[ext_resource path="res://player/assets/player-walk3.png" type="Texture" id=9]
+[ext_resource path="res://player/assets/player-crawl1.png" type="Texture" id=6]
+[ext_resource path="res://player/assets/player-crawl2.png" type="Texture" id=7]
+[ext_resource path="res://player/assets/player-crouch.png" type="Texture" id=8]
+[ext_resource path="res://player/assets/player-fall.png" type="Texture" id=9]
 [ext_resource path="res://player/assets/player-dash.png" type="Texture" id=10]
-[ext_resource path="res://player/assets/player-crawl1.png" type="Texture" id=11]
-[ext_resource path="res://player/assets/player-crawl2.png" type="Texture" id=12]
-[ext_resource path="res://player/assets/player-fall.png" type="Texture" id=13]
-[ext_resource path="res://player/assets/player-walk4.png" type="Texture" id=14]
-[ext_resource path="res://player/assets/player-crouch.png" type="Texture" id=15]
+[ext_resource path="res://player/assets/player-walk1.png" type="Texture" id=11]
+[ext_resource path="res://player/assets/player-walk2.png" type="Texture" id=12]
+[ext_resource path="res://player/assets/player-walk4.png" type="Texture" id=13]
+[ext_resource path="res://player/assets/player-walk3.png" type="Texture" id=14]
+[ext_resource path="res://player/assets/player-double-jump.png" type="Texture" id=15]
 [ext_resource path="res://player/assets/player-climb1.png" type="Texture" id=16]
 [ext_resource path="res://player/assets/player-climb2.png" type="Texture" id=17]
 
-[sub_resource type="DynamicFont" id=8]
-
-size = 8
-font_data = ExtResource( 2 )
-
 [sub_resource type="RectangleShape2D" id=1]
-
 extents = Vector2( 5.87115, 8.77244 )
 
 [sub_resource type="Curve" id=2]
-
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.971045, 0.4472 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=3]
-
 curve = SubResource( 2 )
 
 [sub_resource type="ParticlesMaterial" id=4]
-
 emission_shape = 2
 emission_box_extents = Vector3( 10, 10, 10 )
 flag_disable_z = true
 gravity = Vector3( 0, 20, 0 )
+angular_velocity = 1.0
 orbit_velocity = 0.01
 orbit_velocity_random = 0.0
 radial_accel = 1.0
@@ -48,25 +40,28 @@ scale = 3.0
 scale_curve = SubResource( 3 )
 
 [sub_resource type="RectangleShape2D" id=5]
-
 extents = Vector2( 10, 14 )
 
 [sub_resource type="SpriteFrames" id=6]
-
 animations = [ {
 "frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "idle",
 "speed": 2.0
 }, {
-"frames": [ ExtResource( 6 ) ],
-"loop": false,
-"name": "double-jump",
+"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "crawl",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 8 ) ],
-"loop": true,
-"name": "walk",
+"frames": [ ExtResource( 8 ) ],
+"loop": false,
+"name": "crouch",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": false,
+"name": "fall",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 10 ) ],
@@ -74,29 +69,24 @@ animations = [ {
 "name": "dash",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 11 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "crawl",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 13 ) ],
-"loop": false,
-"name": "fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 14 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "run",
 "speed": 8.0
 }, {
-"frames": [ ExtResource( 8 ) ],
+"frames": [ ExtResource( 12 ) ],
 "loop": false,
 "name": "jump",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 14 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 15 ) ],
 "loop": false,
-"name": "crouch",
+"name": "double-jump",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 16 ), ExtResource( 17 ) ],
@@ -106,7 +96,6 @@ animations = [ {
 } ]
 
 [sub_resource type="Animation" id=7]
-
 length = 0.3
 step = 0.01
 tracks/0/type = "value"
@@ -124,9 +113,6 @@ tracks/0/keys = {
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 speed = 200
 run_speed = 350
 climb_speed = 140
@@ -135,13 +121,21 @@ jump_force = 6
 gravity = 12
 
 [node name="Label" type="Label" parent="."]
-margin_left = -43.1604
-margin_top = -25.4763
-margin_right = 43.8396
-margin_bottom = -11.4763
-custom_fonts/font = SubResource( 8 )
+margin_left = -85.0
+margin_top = -26.0
+margin_right = 2.0
+margin_bottom = -12.0
+custom_fonts/font = ExtResource( 2 )
 text = "Name"
-align = 1
+align = 2
+
+[node name="Points" type="Label" parent="."]
+margin_left = 6.0
+margin_top = -26.0
+margin_right = 46.0
+margin_bottom = -12.0
+custom_fonts/font = ExtResource( 2 )
+text = "0"
 
 [node name="Detection" type="Area2D" parent="."]
 editor/display_folded = true
