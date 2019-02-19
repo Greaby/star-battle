@@ -1,25 +1,26 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://coin/Coin.gd" type="Script" id=1]
-[ext_resource path="res://level/tilesheet.png" type="Texture" id=2]
+[ext_resource path="res://coin/coin.png" type="Texture" id=2]
 
-[sub_resource type="PhysicsMaterial" id=3]
+[sub_resource type="PhysicsMaterial" id=1]
 friction = 0.0
 bounce = 1.0
 
 [sub_resource type="CircleShape2D" id=2]
+radius = 8.64815
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=3]
+radius = 8.00486
 
 [node name="Coin" type="RigidBody2D"]
 collision_layer = 4
 collision_mask = 2
-physics_material_override = SubResource( 3 )
+physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
-region_enabled = true
 region_rect = Rect2( 780, 370, 50, 30 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -29,8 +30,10 @@ shape = SubResource( 2 )
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="Visibility" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 0.148846, 0.267924 )
+scale = Vector2( 0.502853, 0.520715 )
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

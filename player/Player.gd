@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 const UP = Vector2(0, -1)
 
-enum STATES {IDLE, WALK, RUN, JUMP, DOUBLE_JUMP, FALL, SAFE_FALL, CROUCH, CRAWL, DASH, CLIMB}
+enum STATES {IDLE, WALK, RUN, JUMP, DOUBLE_JUMP, FALL, SAFE_FALL, CROUCH, CRAWL, DASH, CLIMB, HURT}
 var stateObject
 var states = {
     STATES.IDLE: preload("res://player/states/IdleState.gd"),
@@ -15,11 +15,14 @@ var states = {
     STATES.CROUCH: preload("res://player/states/CrouchState.gd"),
     STATES.CRAWL: preload("res://player/states/CrawlState.gd"),
     STATES.DASH: preload("res://player/states/DashState.gd"),
-    STATES.CLIMB: preload("res://player/states/ClimbState.gd")
+    STATES.CLIMB: preload("res://player/states/ClimbState.gd"),
+    STATES.HURT: preload("res://player/states/HurtState.gd")
 }
 
 var velocity: Vector2 = Vector2()
 var flip: bool = false
+
+var invinsible = false
 
 var points = 0
 
@@ -31,6 +34,7 @@ export(int) var run_speed: int = 300
 export(int) var dash_speed: int = 1000
 export(int) var climb_speed: int = 70
 export(int) var jump_impulse: int = 200
+export(int) var hurt_inpulse: int = 150
 export(int) var jump_force: int = 5
 export(int) var gravity: int = 10
 export(float, 0, 1, .01) var drag_force: float = .9
@@ -90,3 +94,22 @@ func setCollision(extents: Vector2 = Vector2(10, 14), position: Vector2 = Vector
 remote func add_point():
     points += 1
     $Points.text = str(points)
+    
+func remove_point():
+    if points == 0:
+        return
+
+    points -= 1
+    $Points.text = str(points)
+    drop_coin()
+    
+func drop_coin():
+    find_parent("Main").drop_coin(position, Vector2(50 * int(flip), -100))
+
+func _on_Attack_body_entered(body):
+    if body == $"." or body.invinsible:
+        return
+    
+    if body.is_network_master():
+        body.change_state(STATES.HURT)
+    

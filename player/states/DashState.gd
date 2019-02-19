@@ -4,6 +4,8 @@ var last_velocity: Vector2
 var dash_direction: int
 
 func _init(e).(e):
+    e.invinsible = true
+    e.find_node("Attack").monitoring = true
     e.setAnimation("dash")
     last_velocity = e.velocity
     e.find_node("Particles2D").emitting = true
@@ -28,6 +30,8 @@ func handle_move():
     
 func _end_dash():
     yield(entity.get_tree().create_timer(.2), "timeout")
+    entity.invinsible = false
+    entity.find_node("Attack").monitoring = false
     entity.velocity = last_velocity
     entity.find_node("Particles2D").emitting = false
     change_state(entity.STATES.FALL)
