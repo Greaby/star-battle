@@ -6,6 +6,6 @@
 rotate = false
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0.509804 )
+modulate = Color( 1, 1, 1, 0.862745 )
 texture = ExtResource( 1 )
 

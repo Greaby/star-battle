@@ -10,8 +10,9 @@ var player_name
 var players = {}
 var spawn_points = []
 
+var winner
+
 func _ready():
-    get_tree().connect("network_peer_connected", self, "_player_connected")
     get_tree().connect("network_peer_disconnected", self,"_player_disconnected")
     get_tree().connect("connected_to_server", self, "_connected_ok")
     get_tree().connect("connection_failed", self, "_connected_fail")
@@ -28,10 +29,7 @@ func join_game(host: String, port: int, _player_name: String):
     var peer = NetworkedMultiplayerENet.new()
     peer.create_client(host, port)
     get_tree().set_network_peer(peer)
-    
-func _player_connected():
-    pass
-    
+        
 func _player_disconnected():
     pass
     
@@ -66,11 +64,14 @@ func begin_game():
     
 remote func pre_start_game(player_ids):
     spawn_points = player_ids
-    print(get_tree().get_network_unique_id())
     get_tree().change_scene("res://main.tscn")
     
     
-
+remote func end_game(player):
+    rpc("end_game", player)
+    winner = player
+    get_tree().change_scene("res://Endgame.tscn")
+    
     
         
 
