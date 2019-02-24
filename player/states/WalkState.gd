@@ -4,9 +4,6 @@ func _init(e).(e):
     e.setAnimation("walk")
     
 func physics_process():
-    if not entity.is_network_master():
-        return
-        
     get_inputs()
     
     if input_direction.y == -1 and detect_ladder:

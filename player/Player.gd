@@ -39,9 +39,9 @@ export(int) var jump_force: int = 5
 export(int) var gravity: int = 10
 export(float, 0, 1, .01) var drag_force: float = .9
 
-slave var slave_pos = Vector2()
-slave var slave_velocity = Vector2()
-slave var slave_flip: bool = false
+puppet var puppet_pos = Vector2()
+puppet var puppet_velocity = Vector2()
+puppet var puppet_flip: bool = false
 
 func _ready() -> void:
     change_state(STATES.IDLE)
@@ -55,26 +55,23 @@ func _process(delta):
         var coins = get_parent().get_parent().find_node("Coins")
         for coin in coins.get_children():
             if not coin.find_node("Visibility").is_on_screen():
-                var arrow = load("res://player/Arrow.tscn").instance()
                 var coin_vector = position - coin.position
+                var arrow = load("res://player/Arrow.tscn").instance()
                 arrow.find_node("Sprite").rotation = coin_vector.angle()
-                var offset = (coin_vector.angle() + PI) / (PI * 2)
-                
                 camera.find_node("Path2D").add_child(arrow)
-                arrow.unit_offset = offset
+                arrow.unit_offset = (coin_vector.angle() + PI) / (PI * 2)
     
 func _physics_process(delta) -> void:
-    
     if is_network_master():
         stateObject.physics_process()
         velocity = move_and_slide(velocity, UP)
-        rset("slave_velocity", velocity)
-        rset("slave_pos", position)
-        rset("slave_flip", flip)
+        rset_unreliable("puppet_velocity", velocity)
+        rset_unreliable("puppet_pos", position)
+        rset_unreliable("puppet_flip", flip)
     else:
-        velocity = slave_velocity
-        position = slave_pos
-        flip = slave_flip
+        velocity = puppet_velocity
+        position = puppet_pos
+        flip = puppet_flip
         
     $AnimatedSprite.flip_h = flip
     
