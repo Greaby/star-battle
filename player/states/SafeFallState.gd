@@ -16,6 +16,10 @@ func physics_process():
     if jump_just_pressed:
         change_state(entity.STATES.DOUBLE_JUMP)
         return
+        
+    if dash_pressed:
+        change_state(entity.STATES.DASH)
+        return
 
     handle_move()
     

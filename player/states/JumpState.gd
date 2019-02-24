@@ -25,9 +25,8 @@ func handle_move():
     entity.velocity.y += entity.gravity
     if jump_pressed:
         entity.velocity.y -= entity.jump_force
-    
-    
+
     entity.velocity.x = lerp(entity.velocity.x, input_direction.x * entity.speed, 1 - entity.drag_force)
-    
+
     if input_direction.x != 0:
         entity.flip =  input_direction.x < 0
