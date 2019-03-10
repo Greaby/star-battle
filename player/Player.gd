@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 const UP = Vector2(0, -1)
 
-enum STATES {IDLE, WALK, RUN, JUMP, DOUBLE_JUMP, FALL, SAFE_FALL, CROUCH, CRAWL, DASH, CLIMB, HURT}
+enum STATES {IDLE, WALK, RUN, JUMP, DOUBLE_JUMP, FALL, SAFE_FALL, CROUCH, CRAWL, DASH, CLIMB, HURT, WALL_HANG, WALL_SLIDING}
 var stateObject
 var states = {
     STATES.IDLE: preload("res://player/states/IdleState.gd"),
@@ -16,7 +16,9 @@ var states = {
     STATES.CRAWL: preload("res://player/states/CrawlState.gd"),
     STATES.DASH: preload("res://player/states/DashState.gd"),
     STATES.CLIMB: preload("res://player/states/ClimbState.gd"),
-    STATES.HURT: preload("res://player/states/HurtState.gd")
+    STATES.HURT: preload("res://player/states/HurtState.gd"),
+    STATES.WALL_HANG: preload("res://player/states/WallHangState.gd"),
+    STATES.WALL_SLIDING: preload("res://player/states/WallSlidingState.gd"),
 }
 
 var velocity: Vector2 = Vector2()
@@ -38,6 +40,8 @@ export(int) var hurt_inpulse: int = 150
 export(int) var jump_force: int = 5
 export(int) var gravity: int = 10
 export(float, 0, 1, .01) var drag_force: float = .9
+
+export(int) var max_wall_sliding: int = 120
 
 puppet var puppet_pos = Vector2()
 puppet var puppet_velocity = Vector2()

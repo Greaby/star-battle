@@ -3,6 +3,9 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/player-climb1.png-e402757f1c5be5df89c54d457b3718cf.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 

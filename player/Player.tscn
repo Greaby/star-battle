@@ -1,23 +1,24 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
 [ext_resource path="res://player/assets/font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://slash.png" type="Texture" id=3]
-[ext_resource path="res://player/assets/player-idle1.png" type="Texture" id=4]
-[ext_resource path="res://player/assets/player-idle2.png" type="Texture" id=5]
-[ext_resource path="res://player/assets/player-walk1.png" type="Texture" id=6]
-[ext_resource path="res://player/assets/player-walk2.png" type="Texture" id=7]
-[ext_resource path="res://player/assets/player-walk4.png" type="Texture" id=8]
-[ext_resource path="res://player/assets/player-fall.png" type="Texture" id=9]
-[ext_resource path="res://player/assets/player-double-jump.png" type="Texture" id=10]
-[ext_resource path="res://player/assets/player-crawl1.png" type="Texture" id=11]
-[ext_resource path="res://player/assets/player-crawl2.png" type="Texture" id=12]
-[ext_resource path="res://player/assets/player-hurt.png" type="Texture" id=13]
-[ext_resource path="res://player/assets/player-climb1.png" type="Texture" id=14]
-[ext_resource path="res://player/assets/player-climb2.png" type="Texture" id=15]
-[ext_resource path="res://player/assets/player-dash.png" type="Texture" id=16]
-[ext_resource path="res://player/assets/player-crouch.png" type="Texture" id=17]
-[ext_resource path="res://player/assets/player-walk3.png" type="Texture" id=18]
+[ext_resource path="res://player/assets/player-slide.png" type="Texture" id=4]
+[ext_resource path="res://player/assets/player-idle1.png" type="Texture" id=5]
+[ext_resource path="res://player/assets/player-idle2.png" type="Texture" id=6]
+[ext_resource path="res://player/assets/player-walk1.png" type="Texture" id=7]
+[ext_resource path="res://player/assets/player-walk2.png" type="Texture" id=8]
+[ext_resource path="res://player/assets/player-walk4.png" type="Texture" id=9]
+[ext_resource path="res://player/assets/player-climb1.png" type="Texture" id=10]
+[ext_resource path="res://player/assets/player-climb2.png" type="Texture" id=11]
+[ext_resource path="res://player/assets/player-double-jump.png" type="Texture" id=12]
+[ext_resource path="res://player/assets/player-dash.png" type="Texture" id=13]
+[ext_resource path="res://player/assets/player-crouch.png" type="Texture" id=14]
+[ext_resource path="res://player/assets/player-hurt.png" type="Texture" id=15]
+[ext_resource path="res://player/assets/player-fall.png" type="Texture" id=16]
+[ext_resource path="res://player/assets/player-crawl1.png" type="Texture" id=17]
+[ext_resource path="res://player/assets/player-crawl2.png" type="Texture" id=18]
+[ext_resource path="res://player/assets/player-walk3.png" type="Texture" id=19]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.87115, 8.77244 )
@@ -47,57 +48,62 @@ extents = Vector2( 10, 14 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "slide",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "idle",
 "speed": 2.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 7 ) ],
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 8 ) ],
 "loop": true,
 "name": "run",
 "speed": 8.0
 }, {
-"frames": [ ExtResource( 9 ) ],
-"loop": false,
-"name": "fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 10 ) ],
-"loop": false,
-"name": "double-jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 11 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "crawl",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 13 ) ],
-"loop": true,
-"name": "hurt",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 14 ), ExtResource( 15 ) ],
-"loop": true,
-"name": "climb",
-"speed": 4.0
-}, {
-"frames": [ ExtResource( 7 ) ],
+"frames": [ ExtResource( 8 ) ],
 "loop": false,
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 16 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "climb",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 12 ) ],
+"loop": false,
+"name": "double-jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
 "loop": true,
 "name": "dash",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 17 ) ],
+"frames": [ ExtResource( 14 ) ],
 "loop": false,
 "name": "crouch",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 18 ), ExtResource( 7 ) ],
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "hurt",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ) ],
+"loop": false,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "crawl",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 19 ), ExtResource( 8 ) ],
 "loop": true,
 "name": "walk",
 "speed": 5.0

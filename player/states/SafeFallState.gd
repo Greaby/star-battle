@@ -20,6 +20,9 @@ func physics_process():
     if dash_pressed:
         change_state(entity.STATES.DASH)
         return
+        
+    if entity.is_on_wall() and entity.get_slide_collision(0).normal.x == -input_direction.x:
+        change_state(entity.STATES.WALL_HANG)
 
     handle_move()
     

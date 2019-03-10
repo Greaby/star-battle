@@ -3,6 +3,9 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/player-double-jump.png-22612c533fff69807e52d0a74f906b02.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 

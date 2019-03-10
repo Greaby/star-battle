@@ -3,6 +3,9 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/player-walk4.png-06e8e12d0392486dfa365823e1460abc.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 

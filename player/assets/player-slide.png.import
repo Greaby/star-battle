@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/slash-mask.png-4c19554836b4a9adf7ba39f4db760db2.stex"
+path="res://.import/player-slide.png-6ac7ee364f21d387e2fe215627098083.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://slash-mask.png"
-dest_files=[ "res://.import/slash-mask.png-4c19554836b4a9adf7ba39f4db760db2.stex" ]
+source_file="res://player/assets/player-slide.png"
+dest_files=[ "res://.import/player-slide.png-6ac7ee364f21d387e2fe215627098083.stex" ]
 
 [params]
 

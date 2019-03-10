@@ -12,7 +12,6 @@ func _ready():
 func _process(delta):
     if is_network_master():
         for player in $Players.get_children():
-            print(player.points)
             if player.points == 6:
                 main_state.end_game(player.find_node("Label").text)
         
